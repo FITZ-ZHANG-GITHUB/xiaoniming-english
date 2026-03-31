@@ -435,6 +435,7 @@ const units = [
 ];
 
 // ===================== RENDER =====================
+function escAttr(s){ return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function renderAll() {
   const cont = document.getElementById('mainContent');
   cont.innerHTML = '';
@@ -463,7 +464,7 @@ function buildUnit(u, idx) {
   html += `<div class="sec-title">📖 单词学习 <small>点击卡片听发音</small></div>`;
   html += `<div class="vocab-grid">`;
   u.vocab.forEach(v=>{
-    html += `<div class="vcard" data-speak="${v.wd}">
+    html += `<div class="vcard" data-speak="${escAttr(v.wd)}">
       <span class="sp">🔊</span>
       <span class="em">${v.em}</span>
       <div class="wd">${v.wd}</div>
@@ -477,7 +478,7 @@ function buildUnit(u, idx) {
   html += `<div class="sec-title">💬 常用句型 <small>点击听句子发音</small></div>`;
   html += `<div class="slist">`;
   u.sentences.forEach(s=>{
-    html += `<div class="scard" data-speak="${s.en}">
+    html += `<div class="scard" data-speak="${escAttr(s.en)}">
       <span class="se">${s.em}</span>
       <div>
         <div class="sen">${s.en}</div>
@@ -492,7 +493,7 @@ function buildUnit(u, idx) {
   html += `<div class="sec-title">🎵 趣味歌谣</div>`;
   html += `<div class="chant-box"><h3>${u.chant.title}</h3>`;
   u.chant.lines.forEach(l=>{
-    html += `<div class="cline" data-speak="${l.en}">
+    html += `<div class="cline" data-speak="${escAttr(l.en)}">
       <span>🎵</span>
       <span class="clen">${l.en}</span>
       <span class="clcn">${l.cn}</span>
@@ -679,7 +680,7 @@ function pickCard(card) {
 }
 
 // ===================== EVENT DELEGATION =====================
-document.getElementById('content').addEventListener('click', function(e) {
+document.getElementById('mainContent').addEventListener('click', function(e) {
   // Handle .pbtn (sentence play button) — stopPropagation not needed with delegation
   if (e.target.classList.contains('pbtn')) {
     const card = e.target.closest('.scard');
