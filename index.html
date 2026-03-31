@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍋 小柠檬英语口语课堂</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+  :root{--pink:#FF6B9D;--yellow:#FFD93D;--green:#6BCB77;--blue:#4ECDC4;--purple:#C77DFF;--orange:#FF9A3C;--bg:#FFF9F0;--shadow:0 8px 24px rgba(0,0,0,.10);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Nunito','Microsoft YaHei',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden;}
+  .bubble{position:fixed;border-radius:50%;opacity:.13;pointer-events:none;animation:float 8s ease-in-out infinite;z-index:0;}
+  .b1{width:120px;height:120px;background:var(--pink);top:5%;left:3%;animation-delay:0s;}
+  .b2{width:80px;height:80px;background:var(--yellow);top:12%;right:4%;animation-delay:1.2s;}
+  .b3{width:60px;height:60px;background:var(--blue);bottom:22%;left:2%;animation-delay:2.5s;}
+  .b4{width:100px;height:100px;background:var(--purple);bottom:8%;right:3%;animation-delay:3.8s;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-18px);}}
+  header{background:linear-gradient(135deg,#FF6B9D 0%,#FFD93D 55%,#FF9A3C 100%);padding:26px 20px 18px;text-align:center;position:relative;z-index:1;box-shadow:0 4px 20px rgba(255,107,157,.3);}
+  header h1{font-size:clamp(1.7rem,5vw,2.7rem);color:#fff;font-weight:900;text-shadow:3px 3px 0 rgba(0,0,0,.1);}
+  header p{color:rgba(255,255,255,.9);font-size:.97rem;margin-top:6px;font-weight:600;}
+  .hstars{font-size:1.4rem;margin:5px 0;}
+  .tab-bar{display:flex;gap:6px;padding:14px 16px 0;overflow-x:auto;background:#fff;border-bottom:3px solid #FFE0EF;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.06);scrollbar-width:none;}
+  .tab-bar::-webkit-scrollbar{display:none;}
+  .tab-btn{flex-shrink:0;padding:9px 15px;border:none;border-radius:28px 28px 0 0;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;background:#F5F0FF;color:#888;line-height:1.4;}
+  .tab-btn.active{background:var(--pink);color:#fff;transform:translateY(-2px);box-shadow:0 4px 12px rgba(255,107,157,.35);}
+  .tab-btn:hover:not(.active){background:#FFD93D;color:#333;}
+  .content{padding:22px 14px 80px;max-width:900px;margin:0 auto;position:relative;z-index:1;}
+  .unit-panel{display:none;animation:fadeIn .4s ease;}
+  .unit-panel.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  .unit-header{border-radius:22px;padding:22px;margin-bottom:18px;color:#fff;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);}
+  .unit-icon{font-size:3.2rem;flex-shrink:0;}
+  .unit-header h2{font-size:1.4rem;font-weight:900;}
+  .unit-header p{font-size:.88rem;opacity:.9;margin-top:4px;}
+  .level-badge{background:rgba(255,255,255,.3);border-radius:18px;padding:3px 13px;font-size:.78rem;font-weight:700;margin-top:7px;display:inline-block;}
+  .sec-title{font-size:1.1rem;font-weight:800;color:#555;margin:22px 0 11px;display:flex;align-items:center;gap:7px;}
+  .sec-title small{color:#ccc;font-weight:400;font-size:.8rem;}
+  .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;}
+  .vcard{background:#fff;border-radius:18px;padding:14px 10px;text-align:center;box-shadow:var(--shadow);cursor:pointer;transition:all .2s;border:3px solid transparent;position:relative;overflow:hidden;}
+  .vcard:hover{transform:translateY(-5px) scale(1.03);border-color:var(--pink);}
+  .vcard .em{font-size:2.5rem;display:block;margin-bottom:7px;}
+  .vcard .wd{font-size:1rem;font-weight:800;color:#333;}
+  .vcard .ph{font-size:.72rem;color:#bbb;margin:2px 0;}
+  .vcard .mn{font-size:.82rem;color:var(--pink);font-weight:700;}
+  .vcard .sp{position:absolute;top:7px;right:7px;font-size:.9rem;opacity:.45;}
+  .vcard.speaking{border-color:var(--yellow);background:#FFFBEA;animation:vpulse .5s;}
+  @keyframes vpulse{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
+  .slist{display:flex;flex-direction:column;gap:12px;}
+  .scard{background:#fff;border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;border-left:6px solid var(--pink);}
+  .scard:hover{transform:translateX(6px);background:#FFF0F5;}
+  .scard .se{font-size:1.9rem;flex-shrink:0;}
+  .scard .sen{font-size:1.05rem;font-weight:800;color:#333;}
+  .scard .sph{font-size:.74rem;color:#bbb;}
+  .scard .scn{font-size:.86rem;color:#999;margin-top:3px;}
+  .scard .pbtn{margin-left:auto;background:var(--pink);color:#fff;border:none;border-radius:50%;width:38px;height:38px;font-size:1rem;cursor:pointer;flex-shrink:0;transition:all .2s;font-family:inherit;}
+  .scard .pbtn:hover{background:var(--purple);transform:scale(1.15);}
+  .scard.speaking{background:#FFF8E1;border-left-color:var(--yellow);}
+  .chant-box{background:linear-gradient(135deg,#FFD93D22,#FF9A3C18);border:3px solid var(--yellow);border-radius:22px;padding:20px;margin-top:8px;}
+  .chant-box h3{font-size:1rem;font-weight:800;color:#E67E22;margin-bottom:12px;}
+  .cline{display:flex;align-items:baseline;gap:10px;padding:8px 6px;border-bottom:1px dashed #FFD93D;cursor:pointer;transition:all .15s;border-radius:7px;}
+  .cline:last-child{border-bottom:none;}
+  .cline:hover{background:rgba(255,217,61,.2);}
+  .clen{font-size:.97rem;font-weight:700;color:#333;flex:1;}
+  .clcn{font-size:.8rem;color:#aaa;}
+  .practice-box{background:linear-gradient(135deg,#667eea18,#764ba215);border:3px dashed var(--purple);border-radius:22px;padding:22px;margin-top:8px;text-align:center;}
+  .practice-box h3{font-size:1.05rem;color:#7C4DFF;font-weight:800;margin-bottom:11px;}
+  .psen{font-size:1.3rem;font-weight:900;color:#333;margin:11px 0 5px;min-height:2em;}
+  .pcn{font-size:.9rem;color:#999;margin-bottom:14px;}
+  .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .btn{padding:10px 20px;border:none;border-radius:28px;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;display:flex;align-items:center;gap:5px;}
+  .btn-play{background:var(--green);color:#fff;}
+  .btn-rec{background:var(--pink);color:#fff;}
+  .btn-next{background:var(--blue);color:#fff;}
+  .btn:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 6px 16px rgba(0,0,0,.14);}
+  .btn:active{transform:scale(.97);}
+  .wave{display:none;align-items:center;justify-content:center;gap:5px;height:38px;margin:10px 0;}
+  .wave.show{display:flex;}
+  .wbar{width:6px;border-radius:4px;background:var(--pink);animation:wv .8s ease-in-out infinite;}
+  .wbar:nth-child(1){height:14px;animation-delay:0s;}
+  .wbar:nth-child(2){height:26px;animation-delay:.1s;}
+  .wbar:nth-child(3){height:18px;animation-delay:.2s;}
+  .wbar:nth-child(4){height:30px;animation-delay:.3s;}
+  .wbar:nth-child(5){height:16px;animation-delay:.4s;}
+  .wbar:nth-child(6){height:24px;animation-delay:.5s;}
+  @keyframes wv{0%,100%{transform:scaleY(.5);}50%{transform:scaleY(1.2);}}
+  .star-row{display:flex;gap:6px;justify-content:center;margin-top:14px;}
+  .star{font-size:1.5rem;color:#DDD;transition:all .3s;}
+  .star.lit{color:var(--yellow);animation:starPop .4s ease;}
+  @keyframes starPop{0%{transform:scale(0);}60%{transform:scale(1.3);}100%{transform:scale(1);}}
+  .game-box{background:#fff;border-radius:22px;padding:20px;box-shadow:var(--shadow);margin-top:8px;text-align:center;}
+  .game-box h3{font-size:1.05rem;font-weight:800;color:var(--blue);margin-bottom:14px;}
+  .match-pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:460px;margin:0 auto;}
+  .col-label{font-weight:800;font-size:.9rem;margin-bottom:8px;}
+  .col-en .col-label{color:var(--blue);}
+  .col-cn .col-label{color:var(--pink);}
+  .mcol{display:flex;flex-direction:column;gap:8px;}
+  .mcard{background:#F0FFFE;border:3px solid var(--blue);border-radius:14px;padding:12px 8px;cursor:pointer;font-weight:700;font-size:.88rem;transition:all .2s;min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .mcard:hover{background:var(--blue);color:#fff;transform:scale(1.04);}
+  .mcard.sel{background:var(--yellow);border-color:var(--orange);}
+  .mcard.right{background:var(--green);border-color:#4CAF50;color:#fff;animation:bounce .3s;cursor:default;}
+  .mcard.wrong{background:#FF6B6B;border-color:#E74C3C;color:#fff;animation:shake .3s;}
+  @keyframes bounce{0%,100%{transform:scale(1);}50%{transform:scale(1.14);}}
+  @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-7px);}75%{transform:translateX(7px);}}
+  .score-disp{font-size:1.25rem;font-weight:900;color:var(--orange);margin-top:12px;}
+  .confetti{display:none;font-size:1.8rem;margin-top:8px;}
+  .confetti.show{display:block;animation:fadeIn .4s;}
+  footer{text-align:center;padding:14px;color:#CCC;font-size:.78rem;position:fixed;bottom:0;left:0;right:0;background:rgba(255,249,240,.92);backdrop-filter:blur(8px);z-index:50;}
+  @media(max-width:500px){.vocab-grid{grid-template-columns:repeat(3,1fr);gap:9px;}.vcard .em{font-size:2rem;}.scard{gap:9px;padding:12px;}}
+</style>
+</head>
+<body>
+
+<div class="bubble b1"></div>
+<div class="bubble b2"></div>
+<div class="bubble b3"></div>
+<div class="bubble b4"></div>
+
+<header>
+  <div class="hstars">🌟 ⭐ 🌟</div>
+  <h1>🍋 小柠檬英语口语课堂</h1>
+  <p>适合7岁小朋友 · 跟我一起开口说英语吧！</p>
+</header>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="showUnit(0)">Unit 1 🙋<br>打招呼</button>
+  <button class="tab-btn" onclick="showUnit(1)">Unit 2 🔢<br>数字</button>
+  <button class="tab-btn" onclick="showUnit(2)">Unit 3 🌈<br>颜色</button>
+  <button class="tab-btn" onclick="showUnit(3)">Unit 4 🐶<br>动物</button>
+  <button class="tab-btn" onclick="showUnit(4)">Unit 5 🍎<br>食物</button>
+  <button class="tab-btn" onclick="showUnit(5)">Unit 6 👨‍👩‍👧<br>家人</button>
+  <button class="tab-btn" onclick="showUnit(6)">Unit 7 🏠<br>家和学校</button>
+  <button class="tab-btn" onclick="showUnit(7)">Unit 8 ☀️<br>天气</button>
+</div>
+
+<div class="content" id="mainContent"></div>
+
+<footer>🍋 小柠檬英语 · 每天练一练，英语进步看得见！✨</footer>
+
+<script>
+// ===================== DATA =====================
+const units = [
+  {
+    icon:'🙋', title:'Unit 1 · Greetings 打招呼',
+    desc:'学会用英文和小朋友、老师互相问好',
+    level:'⭐ Level 1 · 入门', grad:'#FF6B9D,#FF9A3C',
+    vocab:[
+      {em:'👋',wd:'Hello',ph:'/həˈloʊ/',mn:'你好'},
+      {em:'😊',wd:'Hi',ph:'/haɪ/',mn:'嗨'},
+      {em:'🌅',wd:'Good morning',ph:'/ɡʊd ˈmɔːrnɪŋ/',mn:'早上好'},
+      {em:'☀️',wd:'Good afternoon',ph:'/ɡʊd ˌæftərˈnuːn/',mn:'下午好'},
+      {em:'🌙',wd:'Good night',ph:'/ɡʊd naɪt/',mn:'晚安'},
+      {em:'👋',wd:'Goodbye',ph:'/ɡʊdˈbaɪ/',mn:'再见'},
+      {em:'🙏',wd:'Thank you',ph:'/θæŋk juː/',mn:'谢谢'},
+      {em:'✨',wd:'Please',ph:'/pliːz/',mn:'请'},
+      {em:'😅',wd:'Sorry',ph:'/ˈsɒri/',mn:'对不起'},
+    ],
+    sentences:[
+      {em:'😊',en:"Hello! My name is Lily.",cn:'你好！我的名字叫莉莉。'},
+      {em:'🌅',en:"Good morning, teacher!",cn:'早上好，老师！'},
+      {em:'🤝',en:"How are you? — I'm fine, thank you!",cn:'你好吗？——我很好，谢谢！'},
+      {em:'👋',en:"Goodbye! See you tomorrow!",cn:'再见！明天见！'},
+    ],
+    chant:{title:'🎶 Hello Song 问候歌',lines:[
+      {en:"Hello hello, how are you?",cn:'你好你好，你好吗？'},
+      {en:"I am fine, I am fine, thank you!",cn:'我很好，我很好，谢谢！'},
+      {en:"Goodbye goodbye, see you soon!",cn:'再见再见，很快见！'},
+      {en:"Hello hello, have a good day!",cn:'你好你好，祝你一天美好！'},
+    ]},
+    practice:[
+      {en:"Hello! My name is Lily!",cn:'你好！我叫莉莉！'},
+      {en:"Good morning! How are you?",cn:'早上好！你好吗？'},
+      {en:"I am fine, thank you!",cn:'我很好，谢谢！'},
+      {en:"Goodbye! See you tomorrow!",cn:'再见！明天见！'},
+      {en:"Nice to meet you!",cn:'很高兴认识你！'},
+    ],
+    hasGame: true,
+    game:{
+      title:'🃏 连连看 · 英文配中文',
+      pairs:[
+        {en:'Hello 👋',cn:'你好'},
+        {en:'Thank you 🙏',cn:'谢谢'},
+        {en:'Goodbye 👋',cn:'再见'},
+        {en:'Good morning 🌅',cn:'早上好'},
+        {en:'Sorry 😅',cn:'对不起'},
+      ]
+    }
+  },
+  {
+    icon:'🔢', title:'Unit 2 · Numbers 数字 1-10',
+    desc:'学会用英文数数，认识1到10的数字',
+    level:'⭐ Level 1 · 入门', grad:'#4ECDC4,#667EEA',
+    vocab:[
+      {em:'1️⃣',wd:'one',ph:'/wʌn/',mn:'一'},
+      {em:'2️⃣',wd:'two',ph:'/tuː/',mn:'二'},
+      {em:'3️⃣',wd:'three',ph:'/θriː/',mn:'三'},
+      {em:'4️⃣',wd:'four',ph:'/fɔːr/',mn:'四'},
+      {em:'5️⃣',wd:'five',ph:'/faɪv/',mn:'五'},
+      {em:'6️⃣',wd:'six',ph:'/sɪks/',mn:'六'},
+      {em:'7️⃣',wd:'seven',ph:"/ˈsevn/",mn:'七'},
+      {em:'8️⃣',wd:'eight',ph:'/eɪt/',mn:'八'},
+      {em:'9️⃣',wd:'nine',ph:'/naɪn/',mn:'九'},
+      {em:'🔟',wd:'ten',ph:'/ten/',mn:'十'},
+    ],
+    sentences:[
+      {em:'🎂',en:"I am seven years old.",cn:'我七岁了。'},
+      {em:'🐱',en:"I have two cats.",cn:'我有两只猫。'},
+      {em:'🍎',en:"How many apples? Three apples!",cn:'几个苹果？三个苹果！'},
+      {em:'✋',en:"Count with me! One, two, three, four, five!",cn:'跟我数！一、二、三、四、五！'},
+    ],
+    chant:{title:'🎶 Counting Song 数数歌',lines:[
+      {en:"One two three, one two three, count with me!",cn:'一二三，一二三，跟我数！'},
+      {en:"Four five six, four five six, clap clap clap!",cn:'四五六，四五六，拍拍手！'},
+      {en:"Seven eight nine, jump jump jump!",cn:'七八九，跳跳跳！'},
+      {en:"And number ten! Let's count again!",cn:'还有十！让我们再数一遍！'},
+    ]},
+    practice:[
+      {en:"One, two, three, four, five!",cn:'一、二、三、四、五！'},
+      {en:"How many stars? I see ten stars!",cn:'有几颗星星？我看到十颗！'},
+      {en:"Six, seven, eight, nine, ten!",cn:'六、七、八、九、十！'},
+      {en:"I am seven years old.",cn:'我七岁了。'},
+    ],
+    hasGame: false,
+  },
+  {
+    icon:'🌈', title:'Unit 3 · Colors 颜色',
+    desc:'认识彩虹的颜色，用英文说出你看到的',
+    level:'⭐ Level 1 · 入门', grad:'#C77DFF,#FF6B9D',
+    vocab:[
+      {em:'🔴',wd:'red',ph:'/red/',mn:'红色'},
+      {em:'🟠',wd:'orange',ph:"/ˈɒrɪndʒ/",mn:'橙色'},
+      {em:'🟡',wd:'yellow',ph:"/ˈjeloʊ/",mn:'黄色'},
+      {em:'🟢',wd:'green',ph:'/ɡriːn/',mn:'绿色'},
+      {em:'🔵',wd:'blue',ph:'/bluː/',mn:'蓝色'},
+      {em:'🟣',wd:'purple',ph:"/ˈpɜːrpl/",mn:'紫色'},
+      {em:'🩷',wd:'pink',ph:'/pɪŋk/',mn:'粉色'},
+      {em:'⚪',wd:'white',ph:'/waɪt/',mn:'白色'},
+      {em:'⚫',wd:'black',ph:'/blæk/',mn:'黑色'},
+    ],
+    sentences:[
+      {em:'🎨',en:"What color is this? It is red.",cn:'这是什么颜色？是红色。'},
+      {em:'💙',en:"I like blue! Blue is my favorite color.",cn:'我喜欢蓝色！蓝色是我最爱的颜色。'},
+      {em:'🍎',en:"The apple is red and green.",cn:'苹果是红色和绿色的。'},
+      {em:'🌈',en:"The rainbow has many colors!",cn:'彩虹有很多颜色！'},
+    ],
+    chant:{title:'🎶 Rainbow Song 彩虹歌',lines:[
+      {en:"Red and orange, yellow and green!",cn:'红色橙色，黄色绿色！'},
+      {en:"Blue and purple, what a rainbow dream!",cn:'蓝色紫色，多美的彩虹梦！'},
+      {en:"Pink is pretty, white is bright!",cn:'粉色真美，白色好亮！'},
+      {en:"All the colors make me smile tonight!",cn:'所有颜色让我微笑！'},
+    ]},
+    practice:[
+      {en:"What color is this? It is blue!",cn:'这是什么颜色？是蓝色！'},
+      {en:"I like pink! Pink is beautiful!",cn:'我喜欢粉色！粉色很漂亮！'},
+      {en:"The sky is blue and the sun is yellow.",cn:'天空是蓝色的，太阳是黄色的。'},
+      {en:"Red, orange, yellow, green, blue, purple!",cn:'红橙黄绿蓝紫！'},
+    ],
+    hasGame: false,
+  },
+  {
+    icon:'🐶', title:'Unit 4 · Animals 动物',
+    desc:'认识可爱的小动物，学会它们的英文名',
+    level:'⭐⭐ Level 2 · 初级', grad:'#6BCB77,#4ECDC4',
+    vocab:[
+      {em:'🐱',wd:'cat',ph:'/kæt/',mn:'猫'},
+      {em:'🐶',wd:'dog',ph:'/dɒɡ/',mn:'狗'},
+      {em:'🐰',wd:'rabbit',ph:"/ˈræbɪt/",mn:'兔子'},
+      {em:'🐦',wd:'bird',ph:'/bɜːrd/',mn:'鸟'},
+      {em:'🐟',wd:'fish',ph:'/fɪʃ/',mn:'鱼'},
+      {em:'🐼',wd:'panda',ph:"/ˈpændə/",mn:'熊猫'},
+      {em:'🐘',wd:'elephant',ph:"/ˈelɪfənt/",mn:'大象'},
+      {em:'🦁',wd:'lion',ph:"/ˈlaɪən/",mn:'狮子'},
+      {em:'🐸',wd:'frog',ph:'/frɒɡ/',mn:'青蛙'},
+      {em:'🦆',wd:'duck',ph:'/dʌk/',mn:'鸭子'},
+    ],
+    sentences:[
+      {em:'🐱',en:"I have a cat. Her name is Mimi.",cn:'我有一只猫，她叫咪咪。'},
+      {em:'🐼',en:"What animal is this? It is a panda!",cn:'这是什么动物？是熊猫！'},
+      {em:'🐶',en:'The dog says "Woof! Woof!"',cn:'狗狗说"汪！汪！"'},
+      {em:'🐘',en:"My favorite animal is the elephant.",cn:'我最喜欢的动物是大象。'},
+    ],
+    chant:{title:'🎶 Animal Sounds 动物叫声歌',lines:[
+      {en:"🐱 The cat says meow meow meow!",cn:'猫咪说喵喵喵！'},
+      {en:"🐶 The dog says woof woof woof!",cn:'狗狗说汪汪汪！'},
+      {en:"🦆 The duck says quack quack quack!",cn:'鸭鸭说嘎嘎嘎！'},
+      {en:"All the animals play all day!",cn:'所有动物玩一天！'},
+    ]},
+    practice:[
+      {en:"I love pandas! They are so cute!",cn:'我爱熊猫！它们太可爱了！'},
+      {en:"What animal is this? It is a rabbit!",cn:'这是什么动物？是兔子！'},
+      {en:"The cat says meow!",cn:'猫咪说喵！'},
+      {en:"My favorite animal is the dog.",cn:'我最喜欢的动物是狗。'},
+    ],
+    hasGame: false,
+  },
+  {
+    icon:'🍎', title:'Unit 5 · Food 食物',
+    desc:'学会用英文表达喜欢的食物',
+    level:'⭐⭐ Level 2 · 初级', grad:'#FFD93D,#FF9A3C',
+    vocab:[
+      {em:'🍎',wd:'apple',ph:"/ˈæpl/",mn:'苹果'},
+      {em:'🍌',wd:'banana',ph:"/bəˈnɑːnə/",mn:'香蕉'},
+      {em:'🍊',wd:'orange',ph:"/ˈɒrɪndʒ/",mn:'橙子'},
+      {em:'🍓',wd:'strawberry',ph:"/ˈstrɔːberi/",mn:'草莓'},
+      {em:'🍚',wd:'rice',ph:'/raɪs/',mn:'米饭'},
+      {em:'🍞',wd:'bread',ph:'/bred/',mn:'面包'},
+      {em:'🥛',wd:'milk',ph:'/mɪlk/',mn:'牛奶'},
+      {em:'🎂',wd:'cake',ph:'/keɪk/',mn:'蛋糕'},
+      {em:'🍜',wd:'noodles',ph:"/ˈnuːdlz/",mn:'面条'},
+      {em:'🍦',wd:'ice cream',ph:"/ˈaɪs kriːm/",mn:'冰淇淋'},
+    ],
+    sentences:[
+      {em:'🍎',en:"I like apples. Apples are yummy!",cn:'我喜欢苹果。苹果真好吃！'},
+      {em:'🍚',en:"What do you want? I want rice, please!",cn:'你想要什么？我想要米饭！'},
+      {em:'🥤',en:"I don't like milk, but I love juice!",cn:'我不喜欢牛奶，但我爱果汁！'},
+      {em:'🎂',en:"Happy birthday! Let's eat the cake!",cn:'生日快乐！我们来吃蛋糕吧！'},
+    ],
+    chant:{title:'🎶 Yummy Song 美食歌',lines:[
+      {en:"Apple apple, red and sweet!",cn:'苹果苹果，红又甜！'},
+      {en:"Banana banana, good to eat!",cn:'香蕉香蕉，好好吃！'},
+      {en:"Ice cream ice cream, cold and nice!",cn:'冰淇淋冰淇淋，冷冷的好棒！'},
+      {en:"Yummy yummy, eat eat eat!",cn:'太好吃了，吃吃吃！'},
+    ]},
+    practice:[
+      {en:"I love strawberries! They are sweet!",cn:'我爱草莓！它们好甜！'},
+      {en:"I want some bread and milk, please!",cn:'我想要一些面包和牛奶！'},
+      {en:"Yummy! I love ice cream!",cn:'真好吃！我爱冰淇淋！'},
+      {en:"What do you want to eat? Rice, please!",cn:'你想吃什么？米饭！'},
+    ],
+    hasGame: false,
+  },
+  {
+    icon:'👨‍👩‍👧', title:'Unit 6 · Family 家人',
+    desc:'认识家庭成员，介绍你的家人',
+    level:'⭐⭐ Level 2 · 初级', grad:'#FF9A3C,#C77DFF',
+    vocab:[
+      {em:'👨',wd:'father',ph:"/ˈfɑːðər/",mn:'爸爸'},
+      {em:'👩',wd:'mother',ph:"/ˈmʌðər/",mn:'妈妈'},
+      {em:'👴',wd:'grandpa',ph:"/ˈɡrænpɑː/",mn:'爷爷/姥爷'},
+      {em:'👵',wd:'grandma',ph:"/ˈɡrænmɑː/",mn:'奶奶/姥姥'},
+      {em:'👦',wd:'brother',ph:"/ˈbrʌðər/",mn:'哥哥/弟弟'},
+      {em:'👧',wd:'sister',ph:"/ˈsɪstər/",mn:'姐姐/妹妹'},
+      {em:'👶',wd:'baby',ph:"/ˈbeɪbi/",mn:'宝宝'},
+      {em:'🏠',wd:'family',ph:"/ˈfæməli/",mn:'家庭'},
+    ],
+    sentences:[
+      {em:'💝',en:"This is my family. I love my family!",cn:'这是我的家人。我爱我的家人！'},
+      {em:'👨',en:"My father is tall. My mother is beautiful.",cn:'我爸爸很高。我妈妈很漂亮。'},
+      {em:'👧',en:"I have a sister. She is very cute!",cn:'我有一个妹妹，她非常可爱！'},
+      {em:'❤️',en:"I love you, Mum and Dad!",cn:'我爱你们，爸爸妈妈！'},
+    ],
+    chant:{title:'🎶 Family Song 家人歌',lines:[
+      {en:"Father, mother, sister, brother!",cn:'爸爸，妈妈，姐姐，哥哥！'},
+      {en:"Grandpa, grandma, baby too!",cn:'爷爷，奶奶，还有宝宝！'},
+      {en:"All together, me and you!",cn:'我们大家在一起！'},
+      {en:"I love my family, yes I do!",cn:'我爱我的家人，是的我爱！'},
+    ]},
+    practice:[
+      {en:"I love my family so much!",cn:'我非常爱我的家人！'},
+      {en:"My father is strong and kind.",cn:'我爸爸强壮又善良。'},
+      {en:"I have a brother and a sister.",cn:'我有一个哥哥和一个妹妹。'},
+      {en:"I love you, Mum and Dad!",cn:'我爱你们，爸爸妈妈！'},
+    ],
+    hasGame: false,
+  },
+  {
+    icon:'🏠', title:'Unit 7 · Home & School 家和学校',
+    desc:'描述房间和学校里的东西',
+    level:'⭐⭐⭐ Level 3 · 进阶', grad:'#4ECDC4,#6BCB77',
+    vocab:[
+      {em:'🛏️',wd:'bedroom',ph:"/ˈbedrʊm/",mn:'卧室'},
+      {em:'🍳',wd:'kitchen',ph:"/ˈkɪtʃɪn/",mn:'厨房'},
+      {em:'🚿',wd:'bathroom',ph:"/ˈbɑːθrʊm/",mn:'卫生间'},
+      {em:'🏫',wd:'classroom',ph:"/ˈklɑːsruːm/",mn:'教室'},
+      {em:'🪑',wd:'desk',ph:'/desk/',mn:'课桌'},
+      {em:'📚',wd:'book',ph:'/bʊk/',mn:'书'},
+      {em:'✏️',wd:'pencil',ph:"/ˈpensəl/",mn:'铅笔'},
+      {em:'🎒',wd:'bag',ph:'/bæɡ/',mn:'书包'},
+      {em:'🛝',wd:'playground',ph:"/ˈpleɪɡraʊnd/",mn:'操场'},
+      {em:'📖',wd:'library',ph:"/ˈlaɪbrəri/",mn:'图书馆'},
+    ],
+    sentences:[
+      {em:'🏫',en:"I am in the classroom.",cn:'我在教室里。'},
+      {em:'🎒',en:"Where is my bag? It is on the desk.",cn:'我的书包在哪？在桌子上。'},
+      {em:'🛝',en:"I like to play on the playground!",cn:'我喜欢在操场玩！'},
+      {em:'📖',en:"Please open your book to page ten.",cn:'请把书翻到第十页。'},
+    ],
+    chant:{title:'🎶 School Song 学校歌',lines:[
+      {en:"Classroom classroom, let us learn!",cn:'教室教室，让我们学习！'},
+      {en:"Books and pencils, it's my turn!",cn:'书和铅笔，轮到我了！'},
+      {en:"Playground playground, run and play!",cn:'操场操场，跑跑玩玩！'},
+      {en:"Happy school, a brand new day!",cn:'快乐学校，全新的一天！'},
+    ]},
+    practice:[
+      {en:"My school is big and beautiful!",cn:'我的学校又大又漂亮！'},
+      {en:"I am in the classroom.",cn:'我在教室里。'},
+      {en:"Where is my pencil? On the desk!",cn:'我的铅笔在哪？在桌子上！'},
+      {en:"Let's go to the playground and play!",cn:'我们去操场玩吧！'},
+    ],
+    hasGame: false,
+  },
+  {
+    icon:'☀️', title:'Unit 8 · Weather 天气',
+    desc:'描述天气，学会日常天气对话',
+    level:'⭐⭐⭐ Level 3 · 进阶', grad:'#667EEA,#4ECDC4',
+    vocab:[
+      {em:'☀️',wd:'sunny',ph:"/ˈsʌni/",mn:'晴天'},
+      {em:'⛅',wd:'cloudy',ph:"/ˈklaʊdi/",mn:'多云'},
+      {em:'🌧️',wd:'rainy',ph:"/ˈreɪni/",mn:'下雨'},
+      {em:'❄️',wd:'snowy',ph:"/ˈsnoʊi/",mn:'下雪'},
+      {em:'💨',wd:'windy',ph:"/ˈwɪndi/",mn:'刮风'},
+      {em:'🌡️',wd:'hot',ph:'/hɒt/',mn:'热'},
+      {em:'🥶',wd:'cold',ph:'/koʊld/',mn:'冷'},
+      {em:'🌈',wd:'rainbow',ph:"/ˈreɪnboʊ/",mn:'彩虹'},
+    ],
+    sentences:[
+      {em:'☀️',en:"What's the weather like today? It's sunny!",cn:'今天天气怎么样？天气晴朗！'},
+      {em:'☂️',en:"It's raining! Take your umbrella!",cn:'下雨了！带上你的雨伞！'},
+      {em:'🧥',en:"It's cold today! Put on your coat!",cn:'今天很冷！穿上你的外套！'},
+      {em:'🌈',en:"Look! There's a beautiful rainbow!",cn:'看！有一道美丽的彩虹！'},
+    ],
+    chant:{title:'🎶 Weather Chant 天气童谣',lines:[
+      {en:"☀️ Sunny sunny, what a day! Let's go outside and play!",cn:'晴天晴天，多好的一天！出去玩吧！'},
+      {en:"🌧️ Rainy rainy, drip drip drop! The rain just won't stop!",cn:'下雨下雨，滴滴答！雨停不下来！'},
+      {en:"❄️ Snowy snowy, cold cold cold! Let's make a snowman bold!",cn:'下雪下雪，冷冷冷！堆雪人吧！'},
+      {en:"🌈 After rain comes a rainbow bright!",cn:'雨后出现美丽彩虹！'},
+    ]},
+    practice:[
+      {en:"Today is sunny and warm!",cn:'今天阳光明媚，天气暖和！'},
+      {en:"What's the weather today? It's rainy!",cn:'今天天气怎样？下雨了！'},
+      {en:"It is snowing! Let's build a snowman!",cn:'下雪了！我们来堆雪人吧！'},
+      {en:"Look at the beautiful rainbow!",cn:'看那美丽的彩虹！'},
+    ],
+    hasGame: false,
+  },
+];
+
+// ===================== RENDER =====================
+function renderAll() {
+  const cont = document.getElementById('mainContent');
+  cont.innerHTML = '';
+  units.forEach((u, idx) => {
+    const div = document.createElement('div');
+    div.className = 'unit-panel' + (idx===0?' active':'');
+    div.id = 'unit'+idx;
+    div.innerHTML = buildUnit(u, idx);
+    cont.appendChild(div);
+  });
+}
+
+function buildUnit(u, idx) {
+  let html = '';
+  // header
+  html += `<div class="unit-header" style="background:linear-gradient(135deg,${u.grad});">
+    <div class="unit-icon">${u.icon}</div>
+    <div>
+      <h2>${u.title}</h2>
+      <p>${u.desc}</p>
+      <span class="level-badge">${u.level}</span>
+    </div>
+  </div>`;
+
+  // vocab
+  html += `<div class="sec-title">📖 单词学习 <small>点击卡片听发音</small></div>`;
+  html += `<div class="vocab-grid">`;
+  u.vocab.forEach(v=>{
+    html += `<div class="vcard" onclick="speak('${v.wd}','en-US')">
+      <span class="sp">🔊</span>
+      <span class="em">${v.em}</span>
+      <div class="wd">${v.wd}</div>
+      <div class="ph">${v.ph}</div>
+      <div class="mn">${v.mn}</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // sentences
+  html += `<div class="sec-title">💬 常用句型 <small>点击听句子发音</small></div>`;
+  html += `<div class="slist">`;
+  u.sentences.forEach(s=>{
+    const esc = s.en.replace(/'/g,"&#39;");
+    html += `<div class="scard" onclick="speak('${esc}','en-US')">
+      <span class="se">${s.em}</span>
+      <div>
+        <div class="sen">${s.en}</div>
+        <div class="scn">${s.cn}</div>
+      </div>
+      <button class="pbtn" onclick="event.stopPropagation();speak('${esc}','en-US')">🔊</button>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // chant
+  html += `<div class="sec-title">🎵 趣味歌谣</div>`;
+  html += `<div class="chant-box"><h3>${u.chant.title}</h3>`;
+  u.chant.lines.forEach(l=>{
+    const esc = l.en.replace(/'/g,"&#39;");
+    html += `<div class="cline" onclick="speak('${esc}','en-US')">
+      <span>🎵</span>
+      <span class="clen">${l.en}</span>
+      <span class="clcn">${l.cn}</span>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // practice
+  html += `<div class="sec-title">🎤 跟读练习</div>`;
+  html += `<div class="practice-box" id="pbox${idx}">
+    <h3>🎯 听一听，跟着读！</h3>
+    <div class="psen" id="psen${idx}">${u.practice[0].en}</div>
+    <div class="pcn" id="pcn${idx}">${u.practice[0].cn}</div>
+    <div class="wave" id="wave${idx}">
+      <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+      <div class="wbar"></div><div class="wbar"></div><div class="wbar"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-play" onclick="playPrac(${idx})">🔊 听范读</button>
+      <button class="btn btn-rec" id="recbtn${idx}" onclick="toggleRec(${idx})">🎤 我来读</button>
+      <button class="btn btn-next" onclick="nextPrac(${idx})">➡️ 下一句</button>
+    </div>
+    <div class="star-row" id="stars${idx}">
+      <span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span>
+    </div>
+  </div>`;
+
+  // game (only unit0)
+  if(u.hasGame) {
+    html += `<div class="sec-title">🎮 配对小游戏</div>`;
+    html += `<div class="game-box">
+      <h3>${u.game.title}</h3>
+      <div class="match-pair-grid">
+        <div class="col-en"><div class="col-label">English</div><div class="mcol" id="encol"></div></div>
+        <div class="col-cn"><div class="col-label">中文</div><div class="mcol" id="cncol"></div></div>
+      </div>
+      <div class="score-disp" id="gscore">得分：0 / 5</div>
+      <div class="confetti" id="gconfetti">🎉 🌟 🎊 ✨ 🎈</div>
+      <button class="btn btn-next" style="margin:14px auto 0;display:flex;" onclick="initGame()">🔄 重新开始</button>
+    </div>`;
+  }
+
+  return html;
+}
+
+// ===================== TTS =====================
+let voices = [];
+window.speechSynthesis.onvoiceschanged = () => { voices = window.speechSynthesis.getVoices(); };
+
+function speak(text, lang) {
+  if (!window.speechSynthesis) { alert('请使用Chrome浏览器以支持语音功能'); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang || 'en-US';
+  u.rate = 0.82;
+  u.pitch = 1.1;
+  if(!voices.length) voices = window.speechSynthesis.getVoices();
+  const v = voices.find(v=>v.lang.startsWith('en-US') && /samantha|karen|susan|female|zira/i.test(v.name))
+         || voices.find(v=>v.lang.startsWith('en-US'))
+         || voices.find(v=>v.lang.startsWith('en'));
+  if(v) u.voice = v;
+  window.speechSynthesis.speak(u);
+}
+
+// ===================== TABS =====================
+function showUnit(idx) {
+  document.querySelectorAll('.unit-panel').forEach((p,i)=>p.classList.toggle('active',i===idx));
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.tab-btn')[idx]?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+
+// ===================== PRACTICE =====================
+const pracIdx = new Array(units.length).fill(0);
+const starCnt = new Array(units.length).fill(0);
+let recUnit = -1, recTimer = null;
+
+function playPrac(idx) {
+  const d = units[idx].practice[pracIdx[idx]];
+  speak(d.en,'en-US');
+}
+
+function toggleRec(idx) {
+  const wave = document.getElementById('wave'+idx);
+  const btn  = document.getElementById('recbtn'+idx);
+  if(recUnit === idx) {
+    wave.classList.remove('show');
+    btn.textContent = '🎤 我来读';
+    clearTimeout(recTimer);
+    recUnit = -1;
+    addStar(idx);
+  } else {
+    if(recUnit >= 0) {
+      document.getElementById('wave'+recUnit)?.classList.remove('show');
+      const ob = document.getElementById('recbtn'+recUnit);
+      if(ob) ob.textContent='🎤 我来读';
+    }
+    recUnit = idx;
+    wave.classList.add('show');
+    btn.textContent = '⏹ 停止';
+    recTimer = setTimeout(()=>toggleRec(idx), 5500);
+  }
+}
+
+function addStar(idx) {
+  if(starCnt[idx]>=3) return;
+  starCnt[idx]++;
+  const stars = document.querySelectorAll('#stars'+idx+' .star');
+  if(stars[starCnt[idx]-1]) stars[starCnt[idx]-1].classList.add('lit');
+  if(starCnt[idx]===3) speak('Excellent! Three stars! You are amazing!','en-US');
+}
+
+function nextPrac(idx) {
+  const data = units[idx].practice;
+  pracIdx[idx] = (pracIdx[idx]+1) % data.length;
+  document.getElementById('psen'+idx).textContent = data[pracIdx[idx]].en;
+  document.getElementById('pcn'+idx).textContent  = data[pracIdx[idx]].cn;
+  starCnt[idx] = 0;
+  document.querySelectorAll('#stars'+idx+' .star').forEach(s=>s.classList.remove('lit'));
+}
+
+// ===================== GAME =====================
+const gamePairs = units[0].game.pairs;
+let selEn=null, selCn=null, gScore=0, gMatched=0;
+
+function initGame() {
+  selEn=selCn=null; gScore=0; gMatched=0;
+  document.getElementById('gscore').textContent='得分：0 / 5';
+  document.getElementById('gconfetti').classList.remove('show');
+  const enCol = document.getElementById('encol');
+  const cnCol = document.getElementById('cncol');
+  if(!enCol||!cnCol) return;
+  enCol.innerHTML=''; cnCol.innerHTML='';
+  const shuffEn = [...gamePairs].sort(()=>Math.random()-.5);
+  const shuffCn = [...gamePairs].sort(()=>Math.random()-.5);
+  shuffEn.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='mcard'; d.dataset.key=item.en; d.dataset.type='en';
+    d.textContent=item.en; d.onclick=()=>pickCard(d);
+    enCol.appendChild(d);
+  });
+  shuffCn.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='mcard'; d.dataset.key=item.en; d.dataset.type='cn';
+    d.textContent=item.cn; d.onclick=()=>pickCard(d);
+    cnCol.appendChild(d);
+  });
+}
+
+function pickCard(card) {
+  if(card.classList.contains('right')) return;
+  if(card.dataset.type==='en'){
+    if(selEn) selEn.classList.remove('sel');
+    selEn=card; card.classList.add('sel');
+  } else {
+    if(selCn) selCn.classList.remove('sel');
+    selCn=card; card.classList.add('sel');
+  }
+  if(selEn && selCn){
+    setTimeout(()=>{
+      if(selEn.dataset.key===selCn.dataset.key){
+        selEn.classList.replace('sel','right');
+        selCn.classList.replace('sel','right');
+        gScore++; gMatched++;
+        document.getElementById('gscore').textContent=`得分：${gScore} / 5`;
+        speak('Correct! Great job!','en-US');
+        if(gMatched===5){
+          document.getElementById('gconfetti').classList.add('show');
+          setTimeout(()=>speak('Wow! You got all five! You are a star!','en-US'),400);
+        }
+      } else {
+        selEn.classList.add('wrong'); selCn.classList.add('wrong');
+        speak('Try again!','en-US');
+        setTimeout(()=>{
+          selEn.classList.remove('wrong','sel');
+          selCn.classList.remove('wrong','sel');
+          selEn=selCn=null;
+        },700);
+        return;
+      }
+      selEn=selCn=null;
+    },100);
+  }
+}
+
+// ===================== INIT =====================
+renderAll();
+initGame();
+// preload voices
+setTimeout(()=>{ voices = window.speechSynthesis.getVoices(); }, 500);
+</script>
+</body>
+</html>
